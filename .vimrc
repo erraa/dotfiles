@@ -25,7 +25,8 @@ set number
 set relativenumber
 set colorcolumn=81
 set background=dark
-set wildignore=*.o,*~,*.pyc,*dinmamma*
+set wildignore=*.o,*~,*.pyc
+set pastetoggle=<F1>
 "set hlsearch
 
 " Keep vim from wrapping lines into new rows
