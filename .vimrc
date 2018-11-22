@@ -47,6 +47,8 @@ syntax on
 "let g:html_indent_script1="inc"
 "let g:html_indent_style1="inc"
 noremap <Space> <PageDown>
+vnoremap < <gv
+vnoremap > >gv
 
 map <C-h>   <C-w>h
 map <C-j>   <C-w>j
