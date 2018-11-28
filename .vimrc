@@ -115,6 +115,7 @@ call vundle#begin()
 " git clone https://github.com/scrooloose/syntastic.git
 " ~/.vim/bundle/syntastic
 execute pathogen#infect()
+
 " we want to tell the syntastic module when to run
 " " we want to see code highlighting and checks when  we open a file
 " " but we don't care so much that it reruns when we close the file
@@ -123,26 +124,18 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_quiet_messages = { "type": "style" }
 
-" " alternatively, pass a path where Vundle should install plugins
-" "call vundle#begin('~/some/path/here')
-"
-" " let Vundle manage Vundle, required
+Bundle 'ervandew/supertab'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/nerdtree'
+Bundle 'nathanalderson/yang.vim'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'wikitopian/hardmode'
 Plugin 'fatih/vim-go'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'vim-airline/vim-airline'
-"
-" " Add all your plugins here (note older versions of Vundle used Bundle
-" instead of Plugin)
-"
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/nerdtree'
-Bundle 'nathanalderson/yang.vim'
-"Bundle 'Xuyuanp/nerdtree-git-plugin'
-"
-" " All of your Plugins must be added before the following line
+Plugin 'tpope/vim-surround'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
