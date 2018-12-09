@@ -116,13 +116,6 @@ call vundle#begin()
 " ~/.vim/bundle/syntastic
 execute pathogen#infect()
 
-" we want to tell the syntastic module when to run
-" " we want to see code highlighting and checks when  we open a file
-" " but we don't care so much that it reruns when we close the file
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_quiet_messages = { "type": "style" }
 
 Bundle 'ervandew/supertab'
 Bundle 'Valloric/YouCompleteMe'
@@ -144,6 +137,14 @@ let g:ycm_autoclose_preview_window_after_completion=0
 let g:ycm_filepath_completion_use_working_dir = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" we want to tell the syntastic module when to run
+" " we want to see code highlighting and checks when  we open a file
+" " but we don't care so much that it reruns when we close the file
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_quiet_messages = { "type": "style" }
 
 " Scripts
 " Highlight all instances of word under cursor, when idle.
