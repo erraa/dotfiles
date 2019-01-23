@@ -141,10 +141,10 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " we want to tell the syntastic module when to run
 " " we want to see code highlighting and checks when  we open a file
 " " but we don't care so much that it reruns when we close the file
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_quiet_messages = { "type": "style" }
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_quiet_messages = { "type": "style" }
 
 " Scripts
 " Highlight all instances of word under cursor, when idle.
@@ -181,7 +181,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 
-let g:syntastic_go_checkers = ['go', 'golint', 'errcheck']
+let g:syntastic_go_checkers = ['go', 'errcheck']
 
 " Open go doc in vertical window, horizontal, or tab
 au Filetype go nnoremap <leader>v :vsp <CR>:exe "GoDef" <CR>
