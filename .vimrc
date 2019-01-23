@@ -50,6 +50,8 @@ set colorcolumn=81
 set background=dark
 set wildignore=*.o,*~,*.pyc
 set pastetoggle=<F1>
+set wildmode=longest,list,full
+set splitbelow splitright
 "set hlsearch
 
 " Keep vim from wrapping lines into new rows
@@ -128,6 +130,7 @@ Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'tpope/vim-surround'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
