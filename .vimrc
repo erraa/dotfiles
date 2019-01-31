@@ -1,4 +1,5 @@
 " Cheat sheet
+" wjdoqwjdoqwjdoqw
 " zz / zt - scroll to top / middle relative to position
 " gt / gT / :newtab - tab
 " Ctrl+O / Ctrl-I / :jumps - jump
@@ -39,6 +40,7 @@ com! Giefjson %!python -m json.tool
 set path+=**
 set wildmenu
 
+
 set expandtab
 set shiftwidth=4
 set tabstop=4
@@ -72,7 +74,7 @@ syntax on
 "let g:html_indent_inctags="head,html,body,p,head,table,tbody,div,script"
 "let g:html_indent_script1="inc"
 "let g:html_indent_style1="inc"
-noremap <Space> <PageDown>
+let mapleader = " "
 vnoremap < <gv
 vnoremap > >gv
 
@@ -82,6 +84,8 @@ map <C-k>   <C-w>k
 map <C-l>   <C-w>l
 
 map <f2>    :GoRun<CR>
+
+noremap <c-s> :update<CR>
 
 inoremap  <Up>     <NOP>
 inoremap  <Down>   <NOP>
@@ -131,6 +135,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'tpope/vim-surround'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'AndrewRadev/splitjoin.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required

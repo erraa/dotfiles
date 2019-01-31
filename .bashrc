@@ -3,6 +3,10 @@ if [ "$color_prompt" = yes ]; then
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
+
+
+stty -ixon
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_us.UTF-8
 export GOPATH=$HOME/go
