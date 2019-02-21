@@ -1,5 +1,4 @@
 " Cheat sheet
-" wjdoqwjdoqwjdoqw
 " zz / zt - scroll to top / middle relative to position
 " gt / gT / :newtab - tab
 " Ctrl+O / Ctrl-I / :jumps - jump
@@ -124,7 +123,7 @@ execute pathogen#infect()
 
 
 Bundle 'ervandew/supertab'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/nerdtree'
 Bundle 'nathanalderson/yang.vim'
 Plugin 'gmarik/Vundle.vim'
@@ -198,3 +197,8 @@ au Filetype go nnoremap <leader>t :tab split <CR>:exe "GoDef"<CR>
 
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
+
+if has("gui_running")
+  colorscheme evening
+  let macvim_skip_colorscheme = 1
+endif
