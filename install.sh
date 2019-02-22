@@ -9,6 +9,6 @@ mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vi
 echo "Installing Packages"
 sudo apt install python3 python cmake gcc python-dev python3-dev cmake gcc-c++ make python3-devel install build-essential
 echo "Building YCM"
-python3 $HOME/.vim/bundle/YouCompleteMe/install.py --clang-completer
+python3 $HOME/.vim/bundle/YouCompleteMe/install.py --all
 echo "Installing Vim Plugins"
 vim -c "PluginInstall"
