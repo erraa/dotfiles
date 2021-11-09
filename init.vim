@@ -36,10 +36,13 @@
 syntax on
 com! Giefjson %!python -m json.tool
 com! Json %!jq '.'
+com! XML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
 
 set path+=**
 set wildmenu
+set backspace=indent,eol,start
 
+let skip_defaults_vim=1
 
 set expandtab
 set shiftwidth=4
@@ -54,6 +57,7 @@ set wildignore=*.o,*~,*.pyc
 set pastetoggle=<F1>
 set wildmode=longest,list,full
 set splitbelow splitright
+set nohlsearch
 
 " Keep vim from wrapping lines into new rows
 set nowrap
@@ -66,8 +70,6 @@ let g:pymode_python = 'python3'
 filetype on
 filetype plugin on
 filetype indent on
-
-syntax on
 
 let mapleader = " "
 vnoremap < <gv
@@ -90,12 +92,11 @@ noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
+
 autocmd BufNewFile,BufRead *.json set ft=javascript
+
 " Get rid of trailing whitespaces
 autocmd BufWritePre * :%s/\s\+$//e
-" Copy between files
-set viminfo='100,\"2500,:200,%,n~/.viminfo
-
 
 " setup Vundle
 set nocompatible              " required
@@ -105,83 +106,70 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" # Install pathogen
-" mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-" curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-"
 " # Install vim-sensible
 " git clone git://github.com/tpope/vim-sensible.git ~/.vim/bundle/vim-sensible
 "
 " # Install syntastic
 " git clone https://github.com/scrooloose/syntastic.git
 " ~/.vim/bundle/syntastic
-execute pathogen#infect()
 
+"call plug#begin('~/.vim/plugged')
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"call plug#end()
+"
 
 Bundle 'ervandew/supertab'
 Bundle "lepture/vim-jinja"
 Bundle 'chase/vim-ansible-yaml'
-"Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/nerdtree'
 Bundle 'nathanalderson/yang.vim'
 Plugin 'gmarik/Vundle.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 Plugin 'elzr/vim-json'
 Plugin 'wikitopian/hardmode'
 Plugin 'fatih/vim-go'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'davidhalter/jedi-vim'
+
 " disablejedivim
-let g:jedi#completions_enabled = 0
+let g:jedi#completions_enabled = 1
+let g:jedi#force_py_version = 3
+
 Plugin 'vim-airline/vim-airline'
 Plugin 'tpope/vim-surround'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
 
+
 call vundle#end()            " required
+
+call plug#begin('~/.vim/plugged')
+Plug 'hashivim/vim-terraform'
+Plug 'vim-syntastic/syntastic'
+Plug 'juliosueiras/vim-terraform-completion'
+Plug 'deoplete-plugins/deoplete-jedi'
+call plug#end()
+
 filetype plugin indent on    " required
 
-" YouCompleteMe
-let g:ycm_autoclose_preview_window_after_completion=0
-let g:ycm_filepath_completion_use_working_dir = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_semantic_triggers = {
-	\   'python': [ 're!\w{2}' ]
-	\ }
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" we want to tell the syntastic module when to run
-" " we want to see code highlighting and checks when  we open a file
-" " but we don't care so much that it reruns when we close the file
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes':   [],'passive_filetypes': [] }
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_quiet_messages = { "type": "style" }
+
+inoremap <C-Space> <C-x><C-o>
+
+
+" Markdown folding disabled
+let g:vim_markdown_folding_disabled = 1
+
+" CTRL P remap
+nnoremap <c-p> :CtrlPClearCache<bar>CtrlP<cr>
 
 " Scripts
 " Highlight all instances of word under cursor, when idle.
 " Useful when studying strange source code.
 " Type z/ to toggle highlighting on/off.
-nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
-function! AutoHighlightToggle()
-  let @/ = ''
-  if exists('#auto_highlight')
-    au! auto_highlight
-    augroup! auto_highlight
-    setl updatetime=4000
-    echo 'Highlight current word: off'
-    return 0
-  else
-    augroup auto_highlight
-      au!
-      au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
-    augroup end
-    setl updatetime=500
-    echo 'Highlight current word: ON'
-    return 1
-  endif
-endfunction
-
 
 " use goimports for formatting
  let g:go_fmt_command = "goimports"
@@ -190,8 +178,12 @@ endfunction
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
+let g:o_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_auto_type_info = 1
+set updatetime=100
+
+
 
 let g:syntastic_go_checkers = ['go', 'errcheck']
 
@@ -212,3 +204,7 @@ if has("gui_running")
   noremap <C-Tab> :tabnext<CR>
   noremap <C-S-Tab> :tabprev<CR>
 endif
+
+au TabLeave * let g:lasttab = tabpagenr()
+nnoremap <silent> <leader>t :exe "tabn ".g:lasttab<cr>
+vnoremap <silent> <leader>t :exe "tabn ".g:lasttab<cr>
